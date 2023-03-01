@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
-import modalsSlice from './slices/modals.slice';
+import modalUserForm from './slices/modalUserForm.slice';
 
 export default configureStore({
   reducer: {
-    modalsSlice,
+    modalUserForm,
   },
 });

@@ -1,4 +1,14 @@
+//Dependencies
+import { useDispatch } from 'react-redux';
+//Slices
+import { setModal } from '../../store/slices/modalUserForm.slice';
+
 const Header = () => {
+  const dispatch = useDispatch();
+
+  const handlerClickModalUserForm = () => {
+    dispatch(setModal({ isOpen: true, data: {} }));
+  };
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary mb-4">
       <div className="container-fluid">
@@ -19,7 +29,10 @@ const Header = () => {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
-              <button className="btn btn-secondary">
+              <button
+                className="btn btn-secondary"
+                onClick={handlerClickModalUserForm}
+              >
                 Add product <i className="fa-solid fa-plus"></i>
               </button>
             </li>

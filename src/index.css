@@ -1,0 +1,57 @@
+html,
+body,
+#root,
+.App {
+  min-height: 100vh;
+}
+
+/* paleta de colores */
+.color-1 {
+  color: #452947;
+}
+.color-2 {
+  color: #663251;
+}
+.color-3 {
+  color: #98445d;
+}
+.color-4 {
+  color: #d7666e;
+}
+.color-5 {
+  color: #f19572;
+}
+.bg-color-5 {
+  background-color: #f19572;
+}
+
+.bg-color-light-3 {
+  background-color: #98445d10;
+}
+.bg-color-light-4 {
+  background-color: #d7666e99;
+}
+.bg-color-light-5 {
+  background-color: #f1957210;
+}
+
+.App {
+  display: flex;
+  justify-content: stretch;
+  align-items: stretch;
+}
+.main {
+  display: flex;
+  justify-content: space-between;
+  /* align-items:; */
+  flex-direction: column;
+}
+
+/********************Modals*********************/
+.modal-user-form {
+  inset: 0;
+  background-color: #0f0f0f99;
+}
+/* .modal-user-form > .row {
+  background-color: #d7666e;
+} */
