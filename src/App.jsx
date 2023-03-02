@@ -20,6 +20,7 @@ function App() {
   console.log(products);
 
   const getProducts = () => {
+    // console.log('haciendo peticion');
     axios
       .get(`${baseUrl}/products`)
       .then((res) => setProducts(res.data.response))

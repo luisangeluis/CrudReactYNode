@@ -52,6 +52,15 @@ body,
   inset: 0;
   background-color: #0f0f0f99;
 }
+.modal-dialog {
+  width: 100%;
+}
 /* .modal-user-form > .row {
   background-color: #d7666e;
 } */
+
+@media screen and (min-width: 1200px) {
+  .modal-dialog {
+    max-width: 30%;
+  }
+}
