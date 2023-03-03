@@ -1,4 +1,5 @@
 //Dependencies
+import { useRef } from 'react';
 import { useDispatch } from 'react-redux';
 //Custom hooks
 import useGetCategories from '../../hooks/useGetCategories';
@@ -8,44 +9,35 @@ import { setModal } from '../../store/slices/modalUserForm.slice';
 const ModalUserForm = () => {
   const dispatch = useDispatch();
   const [categories] = useGetCategories();
+  const selectElement = useRef(null);
 
-  console.log(categories);
+  //TODO revisar como renderizar la categoria del producto a editar
+  // const [selectedCategory, setSelectedCategory] = useState(
+  //   '6c4f7883-5b93-414a-a87d-d2b8aa9e968b'
+  // );
+
   const handlerClickClose = () => {
     dispatch(setModal({ isOpen: false, data: {} }));
   };
 
-  const handlerOnChange = (e) => {
-    // console.log(e.target.value);
-    // e.target.value = 3;
-  };
-
   const setSelectCategories = (categories, categorieId) => {
-    let elements = categories?.map((category, i) => {
-      return (
+    let elements = [];
+    elements.push(
+      <option value="" key="default" defaultValue>
+        Select a category
+      </option>
+    );
+    categories?.forEach((category) => {
+      elements.push(
         <option value={category.id} key={category.id}>
           {category.name}
         </option>
       );
     });
 
-    // console.log(elements);
-
-    // elements?.push(<option>Select</option>);
-
-    // if (!categorieId) {
-    //   let select = -1;
-    //   elements?.forEach((element, i) => {
-    //     if (element.props.children === 'Select') select = i;
-    //   });
-
-    //   console.log(select);
-    // }
-
-    // else
-    // elements.push(<option defaultValue>Select</option>);
-
     return elements;
   };
+
   return (
     <section className="modal-user-form position-fixed w-100 h-100 d-flex justify-content-center align-items-center modal">
       <div className="modal-dialog modal-lg modal-fullscreen-md-down p-2 p-md-3 rounded-2">
@@ -79,6 +71,7 @@ const ModalUserForm = () => {
                   id="floatingSelect"
                   aria-label="Floating label select example"
                   onChange={handlerOnChange}
+                  ref={selectElement}
                 >
                   {setSelectCategories(categories)}
                 </select>
