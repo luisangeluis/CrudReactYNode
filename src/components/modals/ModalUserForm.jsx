@@ -1,20 +1,26 @@
 //Dependencies
 import { useRef } from 'react';
 import { useDispatch } from 'react-redux';
+import { useForm } from 'react-hook-form';
+import axios from 'axios';
+
 //Custom hooks
 import useGetCategories from '../../hooks/useGetCategories';
+
 //Slices
 import { setModal } from '../../store/slices/modalUserForm.slice';
+
+const baseUrl = 'https://ecommerce-node-78dk.onrender.com/api/v1';
 
 const ModalUserForm = () => {
   const dispatch = useDispatch();
   const [categories] = useGetCategories();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   const selectElement = useRef(null);
-
-  //TODO revisar como renderizar la categoria del producto a editar
-  // const [selectedCategory, setSelectedCategory] = useState(
-  //   '6c4f7883-5b93-414a-a87d-d2b8aa9e968b'
-  // );
 
   const handlerClickClose = () => {
     dispatch(setModal({ isOpen: false, data: {} }));
@@ -38,6 +44,24 @@ const ModalUserForm = () => {
     return elements;
   };
 
+  const handlerSubmitCreate = (data) => {
+    const { name, description, category, price, available } = data;
+    const newProduct = {
+      name,
+      description,
+      categoryId: category,
+      price,
+      available,
+    };
+    axios
+      .post(`${baseUrl}/products`, newProduct)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((error) => console.log(error))
+      .finally(() => {});
+  };
+
   return (
     <section className="modal-user-form position-fixed w-100 h-100 d-flex justify-content-center align-items-center modal">
       <div className="modal-dialog modal-lg modal-fullscreen-md-down p-2 p-md-3 rounded-2">
@@ -47,55 +71,81 @@ const ModalUserForm = () => {
             <button onClick={handlerClickClose} className="btn-close"></button>
           </div>
           <div className="modal-body">
-            <form>
+            <form onSubmit={handleSubmit(handlerSubmitCreate)}>
               <div className="mb-3">
                 <label htmlFor="name" className="form-label">
                   Name
                 </label>
                 <input
-                  type="text"
                   className="form-control"
                   id="name"
                   aria-describedby="name"
+                  {...register('name', { required: 'This field is required' })}
                 />
+                {errors.name && <p role="alert">{errors.name?.message}</p>}
               </div>
               <div className="mb-3">
                 <label htmlFor="description" className="form-label">
                   Description
                 </label>
-                <input type="text" className="form-control" id="description" />
+                <input
+                  className="form-control"
+                  id="description"
+                  {...register('description', {
+                    required: 'This field is required',
+                  })}
+                />
+                {errors.description && (
+                  <p role="alert">{errors.description?.message}</p>
+                )}
               </div>
               <div className="form-floating">
                 <select
                   className="form-select"
                   id="floatingSelect"
                   aria-label="Floating label select example"
-                  onChange={handlerOnChange}
                   ref={selectElement}
+                  {...register('category', {
+                    required: 'This field is required',
+                  })}
                 >
                   {setSelectCategories(categories)}
                 </select>
                 <label htmlFor="floatingSelect">Categories.</label>
+                {errors.category && (
+                  <p role="alert">{errors.category?.message}</p>
+                )}
               </div>
               <div className="mb-3">
                 <label htmlFor="price" className="form-label">
                   Price
                 </label>
-                <input type="text" className="form-control" id="price" />
+                <input
+                  type="number"
+                  className="form-control"
+                  id="price"
+                  {...register('price', { required: 'This field is required' })}
+                />
+                {errors.price && <p role="alert">{errors.price?.message}</p>}
               </div>
-              <div className="form-check">
+              <div className="form-check mb-3">
                 <input
                   className="form-check-input"
                   type="checkbox"
                   value="true"
                   defaultChecked={true}
                   id="flexCheckDefault"
+                  {...register('available')}
                 />
                 <label className="form-check-label" htmlFor="flexCheckDefault">
-                  Is available?
+                  Is the product available?
                 </label>
               </div>
-              <button className="btn btn-primary">Submit</button>
+              <input
+                className="btn btn-primary"
+                type="submit"
+                value="Create a product"
+              />
             </form>
           </div>
         </div>

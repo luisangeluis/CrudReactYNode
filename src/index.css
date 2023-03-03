@@ -47,6 +47,16 @@ body,
   flex-direction: column;
 }
 
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
 /********************Modals*********************/
 .modal-user-form {
   inset: 0;
