@@ -9,6 +9,7 @@ import useGetCategories from '../../hooks/useGetCategories';
 
 //Slices
 import { setModal } from '../../store/slices/modalUserForm.slice';
+import { getProducts } from '../../store/slices/products.slice';
 
 const baseUrl = 'https://ecommerce-node-78dk.onrender.com/api/v1';
 
@@ -53,13 +54,17 @@ const ModalUserForm = () => {
       price,
       available,
     };
+
     axios
       .post(`${baseUrl}/products`, newProduct)
       .then((res) => {
         console.log(res);
       })
       .catch((error) => console.log(error))
-      .finally(() => {});
+      .finally(() => {
+        dispatch(getProducts());
+        handlerClickClose();
+      });
   };
 
   return (

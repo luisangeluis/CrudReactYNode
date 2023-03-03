@@ -1,4 +1,6 @@
+//Dependencies
 import { createSlice } from '@reduxjs/toolkit';
+import axios from 'axios';
 
 const baseUrl = 'https://ecommerce-node-78dk.onrender.com/api/v1';
 

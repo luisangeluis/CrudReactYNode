@@ -1,31 +1,25 @@
 //Dependencies
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
+//Slices
+import { getProducts } from './store/slices/products.slice';
+
 //Components
 import ProductCard from './components/ProductCard';
 import Header from './components/shared/Header';
 import ModalUserForm from './components/modals/ModalUserForm';
 
-const baseUrl = 'https://ecommerce-node-78dk.onrender.com/api/v1';
-
 function App() {
+  const dispatch = useDispatch();
   const modalUserForm = useSelector((state) => state.modalUserForm);
-  const [products, setProducts] = useState();
+  const products = useSelector((state) => state.products);
 
   useEffect(() => {
-    getProducts();
+    dispatch(getProducts());
   }, []);
 
   console.log(products);
-
-  const getProducts = () => {
-    // console.log('haciendo peticion');
-    axios
-      .get(`${baseUrl}/products`)
-      .then((res) => setProducts(res.data.response))
-      .catch((error) => console.log(error));
-  };
 
   return (
     <div className="App bg-color-light-5">
@@ -35,7 +29,7 @@ function App() {
           <div className="col">
             <div className="row">
               {products?.map((product) => (
-                <div className="col-lg-3" key={product.description}>
+                <div className="col-lg-3" key={product.id}>
                   <ProductCard product={product} />
                 </div>
               ))}
@@ -44,7 +38,6 @@ function App() {
         </div>
         <footer>Footer</footer>
       </section>
-
       {modalUserForm.isOpen && <ModalUserForm />}
     </div>
   );

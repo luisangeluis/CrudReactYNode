@@ -1,4 +1,12 @@
+import axios from 'axios';
+
 const ProductCard = ({ product }) => {
+  const handlerClickDelete = () => {
+    axios
+      .delete()
+      .then((res) => console.log(res))
+      .catch((error) => console.log(error));
+  };
   return (
     <article className="card mb-3">
       <div className="row g-0">
@@ -12,6 +20,7 @@ const ProductCard = ({ product }) => {
             <p className="card-text d-flex justify-content-end align-items-center">
               <small className="text-muted">${product.price}</small>
             </p>
+            <button className="btn btn-danger">Delete</button>
           </div>
         </div>
       </div>
