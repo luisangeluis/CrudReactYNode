@@ -21,10 +21,12 @@ body,
 .color-5 {
   color: #f19572;
 }
+.bg-color-3 {
+  background-color: #98445d;
+}
 .bg-color-5 {
   background-color: #f19572;
 }
-
 .bg-color-light-3 {
   background-color: #98445d10;
 }

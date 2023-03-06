@@ -1,6 +1,6 @@
 //Dependencies
 import { useRef } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
 
@@ -23,6 +23,10 @@ const ModalUserForm = () => {
   } = useForm();
   const selectElement = useRef(null);
 
+  const productToEdit = useSelector((state) => state.modalUserForm);
+
+  console.log(productToEdit);
+
   const handlerClickClose = () => {
     dispatch(setModal({ isOpen: false, data: {} }));
   };
@@ -34,6 +38,7 @@ const ModalUserForm = () => {
         Select a category
       </option>
     );
+
     categories?.forEach((category) => {
       elements.push(
         <option value={category.id} key={category.id}>
@@ -86,6 +91,7 @@ const ModalUserForm = () => {
                   id="name"
                   aria-describedby="name"
                   {...register('name', { required: 'This field is required' })}
+                  defaultValue={productToEdit.data.name}
                 />
                 {errors.name && <p role="alert">{errors.name?.message}</p>}
               </div>
