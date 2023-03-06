@@ -21,11 +21,23 @@ body,
 .color-5 {
   color: #f19572;
 }
+.bg-color-1 {
+  background-color: #452947;
+}
+.bg-color-2 {
+  background-color: #663251;
+}
 .bg-color-3 {
   background-color: #98445d;
 }
+.bg-color-4 {
+  background-color: #d7666e;
+}
 .bg-color-5 {
   background-color: #f19572;
+}
+.bg-color-light-2 {
+  background-color: #66325199;
 }
 .bg-color-light-3 {
   background-color: #98445d10;

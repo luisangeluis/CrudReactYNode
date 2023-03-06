@@ -22,7 +22,6 @@ const ModalUserForm = () => {
     formState: { errors },
   } = useForm();
   const selectElement = useRef(null);
-
   const productToEdit = useSelector((state) => state.modalUserForm);
 
   console.log(productToEdit);
@@ -31,10 +30,10 @@ const ModalUserForm = () => {
     dispatch(setModal({ isOpen: false, data: {} }));
   };
 
-  const setSelectCategories = (categories, categorieId) => {
+  const setSelectCategories = (categories) => {
     let elements = [];
     elements.push(
-      <option value="" key="default" defaultValue>
+      <option value="" key="default">
         Select a category
       </option>
     );
@@ -72,16 +71,42 @@ const ModalUserForm = () => {
       });
   };
 
+  const handlerSubmitUpdate = (data) => {
+    const { name, description, category, price, available } = data;
+
+    const editedProduct = {
+      name,
+      description,
+      categoryId: category,
+      price,
+      available,
+    };
+
+    axios.put(`${baseUrl}/products/${productToEdit.data.id}`).then((res) => {
+      console.log(res).catch((error) => console.log(error));
+    });
+  };
+
+  const onSubmit = (data) => {
+    productToEdit.data.id
+      ? handlerSubmitUpdate(data)
+      : handlerSubmitCreate(data);
+  };
+
   return (
     <section className="modal-user-form position-fixed w-100 h-100 d-flex justify-content-center align-items-center modal">
       <div className="modal-dialog modal-lg modal-fullscreen-md-down p-2 p-md-3 rounded-2">
-        <div className="modal-content bg-color-light-4">
+        <div className="modal-content bg-light">
           <div className="modal-header">
-            <h5 className="modal-title">Create a new product</h5>
+            <h5 className="modal-title">
+              {productToEdit.data.id
+                ? 'Edit a product'
+                : 'Create a new product'}
+            </h5>
             <button onClick={handlerClickClose} className="btn-close"></button>
           </div>
           <div className="modal-body">
-            <form onSubmit={handleSubmit(handlerSubmitCreate)}>
+            <form onSubmit={handleSubmit(onSubmit)}>
               <div className="mb-3">
                 <label htmlFor="name" className="form-label">
                   Name
@@ -105,6 +130,7 @@ const ModalUserForm = () => {
                   {...register('description', {
                     required: 'This field is required',
                   })}
+                  defaultValue={productToEdit.data.description}
                 />
                 {errors.description && (
                   <p role="alert">{errors.description?.message}</p>
@@ -119,6 +145,11 @@ const ModalUserForm = () => {
                   {...register('category', {
                     required: 'This field is required',
                   })}
+                  value={
+                    productToEdit.data.categoryId
+                      ? productToEdit.data.categoryId
+                      : ''
+                  }
                 >
                   {setSelectCategories(categories)}
                 </select>
@@ -136,6 +167,7 @@ const ModalUserForm = () => {
                   className="form-control"
                   id="price"
                   {...register('price', { required: 'This field is required' })}
+                  defaultValue={productToEdit.data.price}
                 />
                 {errors.price && <p role="alert">{errors.price?.message}</p>}
               </div>
@@ -143,10 +175,12 @@ const ModalUserForm = () => {
                 <input
                   className="form-check-input"
                   type="checkbox"
-                  value="true"
-                  defaultChecked={true}
+                  // defaultChecked={true}
                   id="flexCheckDefault"
                   {...register('available')}
+                  defaultChecked={
+                    productToEdit.data.status === 'active' ? true : false
+                  }
                 />
                 <label className="form-check-label" htmlFor="flexCheckDefault">
                   Is the product available?
@@ -155,7 +189,9 @@ const ModalUserForm = () => {
               <input
                 className="btn btn-primary"
                 type="submit"
-                value="Create a product"
+                value={
+                  productToEdit.data.id ? 'Edit a product' : 'Create a product'
+                }
               />
             </form>
           </div>

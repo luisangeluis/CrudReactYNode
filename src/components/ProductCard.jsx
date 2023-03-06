@@ -29,10 +29,13 @@ const ProductCard = ({ product }) => {
           <img src="..." className="img-fluid rounded-start" alt="..." />
         </div> */}
         <div className="col-md-12">
-          <div className="card-header d-flex justify-content-between align-items-center">
+          <div className="card-header d-flex justify-content-between align-items-center bg-color-light-4">
             <h5 className="card-title text-primary-emphasis">{product.name}</h5>
-            <button className="btn bg-color-3" onClick={handlerClickDelete}>
-              <i className="fa-solid fa-trash"></i>
+            <button
+              className="btn text-white bg-danger fw-bold"
+              onClick={handlerClickDelete}
+            >
+              <i className="fa-solid  fa-trash"></i>
             </button>
           </div>
           <div className="card-body">
@@ -41,7 +44,10 @@ const ProductCard = ({ product }) => {
               <small className="text-muted">${product.price}</small>
             </p>
 
-            <button className="btn bg-color-5" onClick={handlerClickEdit}>
+            <button
+              className="btn bg-light text-primary-emphasis border border-primary-subtle"
+              onClick={handlerClickEdit}
+            >
               <i className="fa-solid fa-pen"></i>
             </button>
           </div>
