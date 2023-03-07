@@ -21,3 +21,51 @@ export const getProducts = () => (dispatch) => {
     .then((res) => dispatch(setProducts(res.data.response)))
     .catch((error) => console.log(error));
 };
+
+export const handlerSubmitCreate = (data) => (dispatch) => {
+  const { name, description, category, price, available } = data;
+  console.log({ available });
+  const newProduct = {
+    name,
+    description,
+    categoryId: category,
+    price,
+    //TODO No dejar que el front meta el valor que desee en status
+    status: available ? 'active' : 'suspended',
+  };
+
+  axios
+    .post(`${baseUrl}/products`, newProduct)
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((error) => console.log(error))
+    .finally(() => {
+      dispatch(getProducts());
+    });
+};
+
+export const handlerSubmitUpdate = (productId, data) => (dispatch) => {
+  console.log(data);
+
+  const { name, description, category, price, available } = data;
+
+  const editedProduct = {
+    name,
+    description,
+    categoryId: category,
+    price,
+    //TODO No dejar que el front meta el valor que desee en status
+    status: available ? 'active' : 'suspended',
+  };
+
+  axios
+    .put(`${baseUrl}/products/${productId}`, editedProduct)
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((error) => console.log(error))
+    .finally(() => {
+      dispatch(getProducts());
+    });
+};

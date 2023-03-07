@@ -9,7 +9,11 @@ import useGetCategories from '../../hooks/useGetCategories';
 
 //Slices
 import { setModal } from '../../store/slices/modalUserForm.slice';
-import { getProducts } from '../../store/slices/products.slice';
+import {
+  getProducts,
+  handlerSubmitCreate,
+  handlerSubmitUpdate,
+} from '../../store/slices/products.slice';
 
 const baseUrl = 'https://ecommerce-node-78dk.onrender.com/api/v1';
 
@@ -24,7 +28,14 @@ const ModalUserForm = () => {
   const selectElement = useRef(null);
   const productToEdit = useSelector((state) => state.modalUserForm);
 
-  const [selectedValue, setSelectedValue] = useState();
+  const [selectedValue, setSelectedValue] = useState('');
+
+  useEffect(() => {
+    productToEdit?.data.categoryId
+      ? setSelectedValue(productToEdit?.data.categoryId)
+      : setSelectedValue('');
+    // setSelectedValue(productToEdit?.data.categoryId);
+  }, []);
 
   console.log(productToEdit);
 
@@ -51,52 +62,16 @@ const ModalUserForm = () => {
     return elements;
   };
 
-  const handlerSubmitCreate = (data) => {
-    const { name, description, category, price, available } = data;
-    const newProduct = {
-      name,
-      description,
-      categoryId: category,
-      price,
-      available,
-    };
-
-    axios
-      .post(`${baseUrl}/products`, newProduct)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((error) => console.log(error))
-      .finally(() => {
-        dispatch(getProducts());
-        handlerClickClose();
-      });
-  };
-
-  const handlerSubmitUpdate = (data) => {
-    const { name, description, category, price, available } = data;
-
-    const editedProduct = {
-      name,
-      description,
-      categoryId: category,
-      price,
-      available,
-    };
-
-    axios.put(`${baseUrl}/products/${productToEdit.data.id}`).then((res) => {
-      console.log(res).catch((error) => console.log(error));
-    });
-  };
-
   const onSubmit = (data) => {
+    // console.log(data);
     productToEdit.data.id
-      ? handlerSubmitUpdate(data)
-      : handlerSubmitCreate(data);
+      ? dispatch(handlerSubmitUpdate(productToEdit.data.id, data))
+      : dispatch(handlerSubmitCreate(data));
+    handlerClickClose();
   };
 
   const handlerOnChange = (e) => {
-    console.log(e);
+    console.log(e.target.value);
     setSelectedValue(e.target.value);
   };
 
@@ -153,8 +128,7 @@ const ModalUserForm = () => {
                     required: 'This field is required',
                   })}
                   value={selectedValue}
-
-                  // onChange={handlerOnChange}
+                  onChange={handlerOnChange}
                 >
                   {setSelectCategories(categories)}
                 </select>
