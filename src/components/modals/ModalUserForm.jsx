@@ -1,21 +1,15 @@
 //Dependencies
-import { useEffect, useRef, useState } from 'react';
+import { forwardRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
-import axios from 'axios';
-
 //Custom hooks
 import useGetCategories from '../../hooks/useGetCategories';
-
 //Slices
 import { setModal } from '../../store/slices/modalUserForm.slice';
 import {
-  getProducts,
   handlerSubmitCreate,
   handlerSubmitUpdate,
 } from '../../store/slices/products.slice';
-
-const baseUrl = 'https://ecommerce-node-78dk.onrender.com/api/v1';
 
 const ModalUserForm = () => {
   const dispatch = useDispatch();
@@ -24,18 +18,41 @@ const ModalUserForm = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
-  const selectElement = useRef(null);
+    setValue,
+  } = useForm({ defaultValues: { category: '' } });
+  // const selectElement = useRef(null);
   const productToEdit = useSelector((state) => state.modalUserForm);
-
-  const [selectedValue, setSelectedValue] = useState('');
+  console.log(productToEdit);
+  // const [selectedValue, setSelectedValue] = useState('');
 
   useEffect(() => {
-    productToEdit?.data.categoryId
-      ? setSelectedValue(productToEdit?.data.categoryId)
-      : setSelectedValue('');
-    // setSelectedValue(productToEdit?.data.categoryId);
+    productToEdit.data.categoryId
+      ? setValue('category', `${productToEdit.data.categoryId}`)
+      : setValue('category', '');
   }, []);
+
+  const Select = forwardRef(({ onChange, name, categories }, ref) => {
+    return (
+      <>
+        <select
+          name={name}
+          ref={ref}
+          onChange={onChange}
+          className="form-select"
+        >
+          {categories?.map((categorie) => {
+            return (
+              <option value={categorie.id} key={categorie.id}>
+                {categorie.name}
+              </option>
+            );
+          })}
+        </select>
+      </>
+    );
+  });
+
+  console.log(Select);
 
   console.log(productToEdit);
 
@@ -43,36 +60,12 @@ const ModalUserForm = () => {
     dispatch(setModal({ isOpen: false, data: {} }));
   };
 
-  const setSelectCategories = (categories) => {
-    let elements = [];
-    elements.push(
-      <option value="" key="default">
-        Select a category
-      </option>
-    );
-
-    categories?.forEach((category) => {
-      elements.push(
-        <option value={category.id} key={category.id}>
-          {category.name}
-        </option>
-      );
-    });
-
-    return elements;
-  };
-
   const onSubmit = (data) => {
-    // console.log(data);
+    console.log(data);
     productToEdit.data.id
       ? dispatch(handlerSubmitUpdate(productToEdit.data.id, data))
       : dispatch(handlerSubmitCreate(data));
     handlerClickClose();
-  };
-
-  const handlerOnChange = (e) => {
-    console.log(e.target.value);
-    setSelectedValue(e.target.value);
   };
 
   return (
@@ -119,19 +112,24 @@ const ModalUserForm = () => {
                 )}
               </div>
               <div className="form-floating">
-                <select
+                <Select
+                  label="categories"
+                  categories={categories}
+                  {...register('category')}
+                />
+                {/* <select
                   className="form-select"
                   id="floatingSelect"
                   aria-label="Floating label select example"
-                  ref={selectElement}
+                  // ref={selectElement}
                   {...register('category', {
                     required: 'This field is required',
                   })}
-                  value={selectedValue}
-                  onChange={handlerOnChange}
+                  // value={selectedValue}
+                  // onChange={handlerOnChange}
                 >
-                  {setSelectCategories(categories)}
-                </select>
+                  {/* {setSelectCategories(categories)} }
+                </select> */}
                 <label htmlFor="floatingSelect">Categories.</label>
                 {errors.category && (
                   <p role="alert">{errors.category?.message}</p>
@@ -154,12 +152,12 @@ const ModalUserForm = () => {
                 <input
                   className="form-check-input"
                   type="checkbox"
-                  // defaultChecked={true}
+                  defaultChecked={true}
                   id="flexCheckDefault"
                   {...register('available')}
-                  defaultChecked={
-                    productToEdit.data.status === 'active' ? true : false
-                  }
+                  // defaultChecked={
+                  //   productToEdit.data.status === 'active' ? true : false
+                  // }
                 />
                 <label className="form-check-label" htmlFor="flexCheckDefault">
                   Is the product available?
