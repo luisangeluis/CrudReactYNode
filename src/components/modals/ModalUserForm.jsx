@@ -20,10 +20,7 @@ const ModalUserForm = () => {
     formState: { errors },
     setValue,
   } = useForm({ defaultValues: { category: '' } });
-  // const selectElement = useRef(null);
   const productToEdit = useSelector((state) => state.modalUserForm);
-  console.log(productToEdit);
-  // const [selectedValue, setSelectedValue] = useState('');
 
   useEffect(() => {
     productToEdit.data.categoryId
@@ -32,6 +29,22 @@ const ModalUserForm = () => {
   }, []);
 
   const Select = forwardRef(({ onChange, name, categories }, ref) => {
+    const defaultOption = [
+      <option value="" key="default">
+        Select a category
+      </option>,
+    ];
+
+    const array3 = defaultOption.concat(
+      categories?.map((categorie) => {
+        return (
+          <option value={categorie.id} key={categorie.id}>
+            {categorie.name}
+          </option>
+        );
+      })
+    );
+
     return (
       <>
         <select
@@ -40,28 +53,18 @@ const ModalUserForm = () => {
           onChange={onChange}
           className="form-select"
         >
-          {categories?.map((categorie) => {
-            return (
-              <option value={categorie.id} key={categorie.id}>
-                {categorie.name}
-              </option>
-            );
-          })}
+          {array3}
         </select>
       </>
     );
   });
-
-  console.log(Select);
-
-  console.log(productToEdit);
 
   const handlerClickClose = () => {
     dispatch(setModal({ isOpen: false, data: {} }));
   };
 
   const onSubmit = (data) => {
-    console.log(data);
+    //TODO
     productToEdit.data.id
       ? dispatch(handlerSubmitUpdate(productToEdit.data.id, data))
       : dispatch(handlerSubmitCreate(data));
@@ -115,21 +118,10 @@ const ModalUserForm = () => {
                 <Select
                   label="categories"
                   categories={categories}
-                  {...register('category')}
-                />
-                {/* <select
-                  className="form-select"
-                  id="floatingSelect"
-                  aria-label="Floating label select example"
-                  // ref={selectElement}
                   {...register('category', {
                     required: 'This field is required',
                   })}
-                  // value={selectedValue}
-                  // onChange={handlerOnChange}
-                >
-                  {/* {setSelectCategories(categories)} }
-                </select> */}
+                />
                 <label htmlFor="floatingSelect">Categories.</label>
                 {errors.category && (
                   <p role="alert">{errors.category?.message}</p>
@@ -155,9 +147,6 @@ const ModalUserForm = () => {
                   defaultChecked={true}
                   id="flexCheckDefault"
                   {...register('available')}
-                  // defaultChecked={
-                  //   productToEdit.data.status === 'active' ? true : false
-                  // }
                 />
                 <label className="form-check-label" htmlFor="flexCheckDefault">
                   Is the product available?
