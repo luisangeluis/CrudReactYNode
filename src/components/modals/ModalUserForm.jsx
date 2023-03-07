@@ -1,5 +1,5 @@
 //Dependencies
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
@@ -23,6 +23,8 @@ const ModalUserForm = () => {
   } = useForm();
   const selectElement = useRef(null);
   const productToEdit = useSelector((state) => state.modalUserForm);
+
+  const [selectedValue, setSelectedValue] = useState();
 
   console.log(productToEdit);
 
@@ -93,6 +95,11 @@ const ModalUserForm = () => {
       : handlerSubmitCreate(data);
   };
 
+  const handlerOnChange = (e) => {
+    console.log(e);
+    setSelectedValue(e.target.value);
+  };
+
   return (
     <section className="modal-user-form position-fixed w-100 h-100 d-flex justify-content-center align-items-center modal">
       <div className="modal-dialog modal-lg modal-fullscreen-md-down p-2 p-md-3 rounded-2">
@@ -145,11 +152,9 @@ const ModalUserForm = () => {
                   {...register('category', {
                     required: 'This field is required',
                   })}
-                  value={
-                    productToEdit.data.categoryId
-                      ? productToEdit.data.categoryId
-                      : ''
-                  }
+                  value={selectedValue}
+
+                  // onChange={handlerOnChange}
                 >
                   {setSelectCategories(categories)}
                 </select>
