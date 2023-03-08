@@ -9,10 +9,12 @@ import { getProducts } from './store/slices/products.slice';
 import ProductCard from './components/ProductCard';
 import Header from './components/shared/Header';
 import ModalUserForm from './components/modals/ModalUserForm';
+import ModalDelete from './components/modals/ModalDelete';
 
 function App() {
   const dispatch = useDispatch();
   const modalUserForm = useSelector((state) => state.modalUserForm);
+  const modalDelete = useSelector((state) => state.modalDelete);
   const products = useSelector((state) => state.products);
 
   useEffect(() => {
@@ -29,7 +31,7 @@ function App() {
           <div className="col">
             <div className="row">
               {products?.map((product) => (
-                <div className="col-lg-3" key={product.id}>
+                <div className="col-md-4 col-lg-3" key={product.id}>
                   <ProductCard product={product} />
                 </div>
               ))}
@@ -39,6 +41,7 @@ function App() {
         <footer>Footer</footer>
       </section>
       {modalUserForm.isOpen && <ModalUserForm />}
+      {modalDelete.isOpen && <ModalDelete />}
     </div>
   );
 }

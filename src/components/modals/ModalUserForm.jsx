@@ -133,6 +133,7 @@ const ModalUserForm = () => {
                 </label>
                 <input
                   type="number"
+                  step={'0.1'}
                   className="form-control"
                   id="price"
                   {...register('price', { required: 'This field is required' })}

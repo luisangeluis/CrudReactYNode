@@ -69,3 +69,11 @@ export const handlerSubmitUpdate = (productId, data) => (dispatch) => {
       dispatch(getProducts());
     });
 };
+
+export const handlerSubmitDelete = (productId) => (dispatch) => {
+  axios
+    .delete(`${baseUrl}/products/${productId}`)
+    .then((res) => console.log(res))
+    .catch((error) => console.log(error))
+    .finally(() => dispatch(getProducts()));
+};
