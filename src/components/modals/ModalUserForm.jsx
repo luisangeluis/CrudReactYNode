@@ -81,7 +81,10 @@ const ModalUserForm = () => {
                 ? 'Edit a product'
                 : 'Create a new product'}
             </h5>
-            <button onClick={handlerClickClose} className="btn-close"></button>
+            <button
+              onClick={handlerClickClose}
+              className="btn-close border border-2 border-dark-subtle"
+            ></button>
           </div>
           <div className="modal-body">
             <form onSubmit={handleSubmit(onSubmit)}>

@@ -5,6 +5,17 @@ body,
   min-height: 100vh;
 }
 
+body {
+  background: url('./public/taza.jpg') no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: 100%;
+  backdrop-filter: sepia(50%);
+
+  font-family: 'Roboto', sans-serif;
+  /* font-family: 'Roboto', sans-serif; */
+}
+
 /* paleta de colores */
 .color-1 {
   color: #a9b7c0;
@@ -23,6 +34,9 @@ body,
 }
 .custom-color-red {
   color: #be2d2d;
+}
+.custom-bg-color-red-light {
+  background-color: #be2d2d80;
 }
 .bg-color-1 {
   background-color: #a9b7c0;
@@ -100,6 +114,11 @@ input[type='number'] {
   background-color: #be2d2d;
   border-style: none;
 }
+/********************Animations*********************/
+
+
+
+/********************Media querys*********************/
 @media screen and (min-width: 992px) {
   .navbar-brand {
     font-size: 2.5em;

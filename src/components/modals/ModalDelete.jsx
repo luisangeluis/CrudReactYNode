@@ -20,14 +20,14 @@ const ModalDelete = () => {
   return (
     <div className="modal modal-user-form position-fixed w-100 h-100 d-flex justify-content-center align-items-center">
       <div className="modal-dialog modal-md   p-2 p-md-3 rounded-2">
-        <div className="modal-content bg-light">
+        <div className="modal-content">
           <div className="modal-header">
-            <h5 className="modal-title text-center">
+            <h5 className="modal-title text-center custom-color-red">
               {productToDelete.data.message}
             </h5>
             <button
               type="button"
-              className="btn-close"
+              className="btn-close border border-2 border-primary-subtle"
               data-bs-dismiss="modal"
               aria-label="Close"
               onClick={handlerClickClose}
@@ -35,13 +35,13 @@ const ModalDelete = () => {
           </div>
           <div className="modal-body text-center">
             <button
-              className="btn btn-secondary mx-2"
+              className="btn btn bg-color-1 border border-secondary fw-bold mx-2"
               onClick={handlerClickClose}
             >
               No
             </button>
             <button
-              className="btn btn-primary"
+              className="btn custom-bg-color-red fw-bold"
               onClick={handlerClickModalDelete}
             >
               Yes
