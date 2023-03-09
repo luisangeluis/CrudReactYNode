@@ -7,46 +7,58 @@ body,
 
 /* paleta de colores */
 .color-1 {
-  color: #452947;
+  color: #a9b7c0;
 }
 .color-2 {
-  color: #663251;
+  color: #c7d8c6;
 }
 .color-3 {
-  color: #98445d;
+  color: #efd9c1;
 }
 .color-4 {
-  color: #d7666e;
+  color: #cccbc6;
 }
 .color-5 {
-  color: #f19572;
+  color: #f0f0f0;
+}
+.custom-color-red {
+  color: #be2d2d;
 }
 .bg-color-1 {
-  background-color: #452947;
+  background-color: #a9b7c0;
 }
 .bg-color-2 {
-  background-color: #663251;
+  background-color: #c7d8c6;
 }
 .bg-color-3 {
-  background-color: #98445d;
+  background-color: #efd9c1;
 }
 .bg-color-4 {
-  background-color: #d7666e;
+  background-color: #cccbc6;
 }
 .bg-color-5 {
-  background-color: #f19572;
+  background-color: #f0f0f0;
+}
+.custom-bg-color-red {
+  background-color: #be2d2d;
+}
+.bg-color-light-1 {
+  background-color: #c7d8c680;
 }
 .bg-color-light-2 {
-  background-color: #66325199;
+  background-color: #c7d8c680;
 }
 .bg-color-light-3 {
-  background-color: #98445d10;
+  background-color: #efd9c180;
 }
 .bg-color-light-4 {
-  background-color: #d7666e99;
+  background-color: #cccbc680;
 }
 .bg-color-light-5 {
-  background-color: #f1957210;
+  background-color: #f0f0f080;
+}
+.border-secondary {
+  border-color: #c7d8c6;
 }
 
 .App {
@@ -70,18 +82,29 @@ input[type='number']::-webkit-outer-spin-button {
 input[type='number'] {
   -moz-appearance: textfield;
 }
+/********************Navbar*********************/
+.navbar-brand {
+  font-size: 2.8em;
+}
 
 /********************Modals*********************/
 .modal-user-form {
   inset: 0;
-  background-color: #0f0f0f99;
+  background-color: #0f0f0f3e;
 }
 .modal-dialog {
   width: 100%;
 }
-/* .modal-user-form > .row {
-  background-color: #d7666e;
-} */
+
+.form-check-input:checked {
+  background-color: #be2d2d;
+  border-style: none;
+}
+@media screen and (min-width: 992px) {
+  .navbar-brand {
+    font-size: 2.5em;
+  }
+}
 
 @media screen and (min-width: 1200px) {
   .modal-dialog {

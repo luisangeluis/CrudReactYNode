@@ -10,7 +10,7 @@ const Header = () => {
     dispatch(setModal({ isOpen: true, data: {} }));
   };
   return (
-    <nav className="navbar navbar-expand-lg bg-body-tertiary mb-4">
+    <nav className="navbar navbar-expand-lg bg-color-2 border border-secondary border-0 rounded mb-4 mx-0 py-3 px-1 px-lg-3">
       <div className="container-fluid">
         <a className="navbar-brand" href="#">
           Navbar

@@ -75,7 +75,7 @@ const ModalUserForm = () => {
     <section className="modal-user-form position-fixed w-100 h-100 d-flex justify-content-center align-items-center modal">
       <div className="modal-dialog modal-lg modal-fullscreen-md-down p-2 p-md-3 rounded-2">
         <div className="modal-content bg-light">
-          <div className="modal-header">
+          <div className="modal-header bg-color-3">
             <h5 className="modal-title">
               {productToEdit.data.id
                 ? 'Edit a product'
@@ -143,18 +143,21 @@ const ModalUserForm = () => {
               </div>
               <div className="form-check mb-3">
                 <input
-                  className="form-check-input"
+                  className="form-check-input bg-color-2"
                   type="checkbox"
                   defaultChecked={true}
                   id="flexCheckDefault"
                   {...register('available')}
                 />
-                <label className="form-check-label" htmlFor="flexCheckDefault">
+                <label
+                  className="form-check-label custom-color-red "
+                  htmlFor="flexCheckDefault"
+                >
                   Is the product available?
                 </label>
               </div>
               <input
-                className="btn btn-primary"
+                className="btn bg-color-2"
                 type="submit"
                 value={
                   productToEdit.data.id ? 'Edit a product' : 'Create a product'

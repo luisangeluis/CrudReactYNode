@@ -46,7 +46,7 @@ const ProductCard = ({ product }) => {
               {product.name.toUpperCase()}
             </h5>
             <button
-              className="btn text-white bg-danger fw-bold"
+              className="btn text-white custom-bg-color-red fw-bold"
               onClick={handlerClickModalDelete}
             >
               <i className="fa-solid  fa-trash"></i>
@@ -62,7 +62,7 @@ const ProductCard = ({ product }) => {
             </p>
 
             <button
-              className="btn bg-light text-primary-emphasis border border-primary-subtle"
+              className="btn bg-color-1 border border-secondary fw-bold"
               onClick={handlerClickEdit}
             >
               <i className="fa-solid fa-pen"></i>
