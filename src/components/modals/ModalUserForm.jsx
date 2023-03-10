@@ -72,105 +72,107 @@ const ModalUserForm = () => {
   };
 
   return (
-    <section className="modal-user-form position-fixed w-100 h-100 d-flex justify-content-center align-items-center modal">
-      <div className="modal-dialog modal-lg modal-fullscreen-md-down p-2 p-md-3 rounded-2">
-        <div className="modal-content bg-light">
-          <div className="modal-header bg-color-3">
-            <h5 className="modal-title">
-              {productToEdit.data.id
-                ? 'Edit a product'
-                : 'Create a new product'}
-            </h5>
-            <button
-              onClick={handlerClickClose}
-              className="btn-close border border-2 border-dark-subtle"
-            ></button>
-          </div>
-          <div className="modal-body">
-            <form onSubmit={handleSubmit(onSubmit)}>
-              <div className="mb-3">
-                <label htmlFor="name" className="form-label">
-                  Name
-                </label>
-                <input
-                  className="form-control"
-                  id="name"
-                  aria-describedby="name"
-                  {...register('name', { required: 'This field is required' })}
-                  defaultValue={productToEdit.data.name}
-                />
-                {errors.name && <p role="alert">{errors.name?.message}</p>}
-              </div>
-              <div className="mb-3">
-                <label htmlFor="description" className="form-label">
-                  Description
-                </label>
-                <input
-                  className="form-control"
-                  id="description"
-                  {...register('description', {
-                    required: 'This field is required',
-                  })}
-                  defaultValue={productToEdit.data.description}
-                />
-                {errors.description && (
-                  <p role="alert">{errors.description?.message}</p>
-                )}
-              </div>
-              <div className="form-floating">
-                <Select
-                  label="categories"
-                  categories={categories}
-                  {...register('category', {
-                    required: 'This field is required',
-                  })}
-                />
-                <label htmlFor="floatingSelect">Categories.</label>
-                {errors.category && (
-                  <p role="alert">{errors.category?.message}</p>
-                )}
-              </div>
-              <div className="mb-3">
-                <label htmlFor="price" className="form-label">
-                  Price
-                </label>
-                <input
-                  type="number"
-                  step={'0.1'}
-                  className="form-control"
-                  id="price"
-                  {...register('price', { required: 'This field is required' })}
-                  defaultValue={productToEdit.data.price}
-                />
-                {errors.price && <p role="alert">{errors.price?.message}</p>}
-              </div>
-              <div className="form-check mb-3">
-                <input
-                  className="form-check-input bg-color-2"
-                  type="checkbox"
-                  defaultChecked={true}
-                  id="flexCheckDefault"
-                  {...register('available')}
-                />
-                <label
-                  className="form-check-label custom-color-red "
-                  htmlFor="flexCheckDefault"
-                >
-                  Is the product available?
-                </label>
-              </div>
-              <input
-                className="btn bg-color-2"
-                type="submit"
-                value={
-                  productToEdit.data.id ? 'Edit a product' : 'Create a product'
-                }
-              />
-            </form>
-          </div>
-        </div>
-      </div>
-    </section>
+    // <section className="my-modal">
+    //   <div className="modal-dialo p-2 p-md-3 rounded-2">
+    //     <div className="modal-conten bg-light">
+    //       <div className="modal-header bg-color-3">
+    //         <h5 className="modal-title">
+    //           {productToEdit.data.id
+    //             ? 'Edit a product'
+    //             : 'Create a new product'}
+    //         </h5>
+    //         <button
+    //           onClick={handlerClickClose}
+    //           className="btn-close border border-2 border-dark-subtle"
+    //         ></button>
+    //       </div>
+    //       <div className="modal-body">
+    //         <form onSubmit={handleSubmit(onSubmit)}>
+    //           <div className="mb-3">
+    //             <label htmlFor="name" className="form-label">
+    //               Name
+    //             </label>
+    //             <input
+    //               className="form-control"
+    //               id="name"
+    //               aria-describedby="name"
+    //               {...register('name', { required: 'This field is required' })}
+    //               defaultValue={productToEdit.data.name}
+    //             />
+    //             {errors.name && <p role="alert">{errors.name?.message}</p>}
+    //           </div>
+    //           <div className="mb-3">
+    //             <label htmlFor="description" className="form-label">
+    //               Description
+    //             </label>
+    //             <input
+    //               className="form-control"
+    //               id="description"
+    //               {...register('description', {
+    //                 required: 'This field is required',
+    //               })}
+    //               defaultValue={productToEdit.data.description}
+    //             />
+    //             {errors.description && (
+    //               <p role="alert">{errors.description?.message}</p>
+    //             )}
+    //           </div>
+    //           <div className="form-floating">
+    //             <Select
+    //               label="categories"
+    //               categories={categories}
+    //               {...register('category', {
+    //                 required: 'This field is required',
+    //               })}
+    //             />
+    //             <label htmlFor="floatingSelect">Categories.</label>
+    //             {errors.category && (
+    //               <p role="alert">{errors.category?.message}</p>
+    //             )}
+    //           </div>
+    //           <div className="mb-3">
+    //             <label htmlFor="price" className="form-label">
+    //               Price
+    //             </label>
+    //             <input
+    //               type="number"
+    //               step={'0.1'}
+    //               className="form-control"
+    //               id="price"
+    //               {...register('price', { required: 'This field is required' })}
+    //               defaultValue={productToEdit.data.price}
+    //             />
+    //             {errors.price && <p role="alert">{errors.price?.message}</p>}
+    //           </div>
+    //           <div className="form-check mb-3">
+    //             <input
+    //               className="form-check-input bg-color-2"
+    //               type="checkbox"
+    //               defaultChecked={true}
+    //               id="flexCheckDefault"
+    //               {...register('available')}
+    //             />
+    //             <label
+    //               className="form-check-label custom-color-red "
+    //               htmlFor="flexCheckDefault"
+    //             >
+    //               Is the product available?
+    //             </label>
+    //           </div>
+    //           <input
+    //             className="btn bg-color-2"
+    //             type="submit"
+    //             value={
+    //               productToEdit.data.id ? 'Edit a product' : 'Create a product'
+    //             }
+    //           />
+    //         </form>
+    //       </div>
+    //     </div>
+    //   </div>
+    // </section>
+
+    <div className="ejemp">hola</div>
   );
 };
 

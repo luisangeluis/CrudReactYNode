@@ -26,6 +26,8 @@ function App() {
   return (
     <div className="App bg-color-light-5">
       <section className="main container-fluid">
+        {modalUserForm.isOpen && <ModalUserForm />}
+        {modalDelete.isOpen && <ModalDelete />}
         <Header />
         <div className="row flex-grow-1">
           <div className="col">
@@ -42,8 +44,6 @@ function App() {
         </div>
         <footer>Footer</footer>
       </section>
-      {modalUserForm.isOpen && <ModalUserForm />}
-      {modalDelete.isOpen && <ModalDelete />}
     </div>
   );
 }
