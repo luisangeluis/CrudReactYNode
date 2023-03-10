@@ -110,7 +110,7 @@ input[type='number'] {
 }
 
 .ejemp {
-  position: sticky;
+  position: fixed;
   background-color: #be2d2d99;
   z-index: 1;
   width: 100%;
